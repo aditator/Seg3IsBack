@@ -54,6 +54,29 @@ q[i]=0.6*q[i-1]-0.5*q[i-2]+rnorm(200,muvect[4],1.5)[i] }
 for(i in 87:107){
 q[i]=0.6*q[i-1]-0.5*q[i-2]+rnorm(200,muvect[5],1.5)[i] }
 q=q[3:107]
+
+#Generating Moving Frequency Dataset
+o=vector()
+o[1]=1
+for(i in 2:10){
+  o[i]=o[i-1]*log(exp(1)+(i/2))
+}
+p=vector()
+for(i in 1:50){
+  p[i]=sin(o[1]*i)+rnorm(5000,0,0.8)[i]
+}
+for(i in 51:100){
+  p[i]=sin(o[2]*i)+rnorm(5000,0,0.8)[i]
+}
+for(i in 101:150){
+  p[i]=sin(o[3]*i)+rnorm(5000,0,0.8)[i]
+}
+for(i in 151:200){
+  p[i]=sin(o[4]*i)+rnorm(5000,0,0.8)[i]
+}
+for(i in 201:250){
+  p[i]=sin(o[5]*i)+rnorm(5000,0,0.8)[i]
+}
 ```
 ## Applying the Segmentor and obtaining the change-points
 ```{r, message=FALSE}
@@ -63,6 +86,8 @@ x_seg=Segmentor(x,model=1,Kmax=15)
 y_seg=Segmentor(y,model=2,Kmax=5)
 z_seg=Segmentor(z,model=1,Kmax=4)
 q_seg=Segmentor(q,model = 2,Kmax = 6)
+p_seg=Segmentor(p,Kmax = 6,model = 2)
+
 
 #Getting Change Points
 w_seg@breaks
@@ -70,6 +95,7 @@ x_seg@breaks
 y_seg@breaks
 z_seg@breaks
 q_seg@breaks
+p_seg@breaks
 ```
 ## Plotting
 The vertical lines in the plots correspond to change-points.
@@ -129,3 +155,17 @@ abline(v=105,col="purple")
 
 
 It is clearly observed that the algorithm fails to produce a valid set of change-points for the case of Jumping average artificial dataset.
+
+```{r, message=FALSE}
+#Plotting for the case of 5 segments in Changing Frequency dataset
+plot(p)
+abline(v=79,col="brown")
+abline(v=80,col="brown")
+abline(v=188,col="brown")
+abline(v=189,col="brown")
+abline(v=250,col="brown")
+```
+![alt tag](https://user-images.githubusercontent.com/37847118/49733254-05180b80-fca7-11e8-8070-bde62c471462.png)
+
+
+The algorithm does not bring expected change-points.
