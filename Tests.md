@@ -64,6 +64,7 @@ abline(v=7,col="red")
 abline(v=8,col="red")
 abline(v=16,col="red")
 ```
+
 ```{r, message=FALSE}
 #Plotting for case of 5 segments in Y
 plot(y)
@@ -73,6 +74,7 @@ abline(v=8,col="blue")
 abline(v=11,col="blue")
 abline(v=20,col="blue")
 ```
+![alt tag](https://user-images.githubusercontent.com/37847118/49724993-b3648680-fc90-11e8-9729-41ccb76dc9fa.png)
 ```{r, message=FALSE}
 #Plotting for case of 3 segments in Z (c(1,2,2,1))
 plot(z)
@@ -80,3 +82,4 @@ abline(v=1,col="green")
 abline(v=3,col="green")
 abline(v=4,col="green")
 ```
+![alt tag](https://user-images.githubusercontent.com/37847118/49724996-b3fd1d00-fc90-11e8-8738-1ff6e18725b2.png)
