@@ -44,6 +44,7 @@ y_seg@breaks
 z_seg@breaks
 ```
 ## Plotting
+The vertical lines in the plots correspond to change-points.
 
 ```{r, message=FALSE}
 #Plotting for case of 3 segments in W
@@ -64,7 +65,7 @@ abline(v=7,col="red")
 abline(v=8,col="red")
 abline(v=16,col="red")
 ```
-
+![alt tag](https://user-images.githubusercontent.com/37847118/49725468-c035aa00-fc91-11e8-85b9-3dc6691584ec.png)
 ```{r, message=FALSE}
 #Plotting for case of 5 segments in Y
 plot(y)
