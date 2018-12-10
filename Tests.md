@@ -82,6 +82,9 @@ abline(v=600,col="purple")
 ```
 ![alt tag](https://user-images.githubusercontent.com/37847118/49724995-b3fd1d00-fc90-11e8-8ceb-f6053178791c.png)
 
+
+The algorithm gives the predicted set of change-points, i.e c(200,400,600).
+
 ```{r, message=FALSE}
 #Plotting for case of 6 segments in X
 plot(x)
@@ -122,4 +125,6 @@ abline(v=72,col="purple")
 abline(v=105,col="purple")
 ```
 ![alt tag](https://user-images.githubusercontent.com/37847118/49730992-f2e69f00-fc9f-11e8-9399-7ed92760df07.png)
+
+
 It is clearly observed that the algorithm fails to produce a valid set of change-points for the case of Jumping average artificial dataset.
