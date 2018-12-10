@@ -53,6 +53,7 @@ for(i in 66:86){
 q[i]=0.6*q[i-1]-0.5*q[i-2]+rnorm(200,muvect[4],1.5)[i] }
 for(i in 87:107){
 q[i]=0.6*q[i-1]-0.5*q[i-2]+rnorm(200,muvect[5],1.5)[i] }
+q=q[3:107]
 ```
 ## Applying the Segmentor and obtaining the change-points
 ```{r, message=FALSE}
