@@ -1,6 +1,18 @@
+#Load the data
+if(!require(Segmentor3IsBack)){
+install.packages(Segmentor3IsBack)
 library(Segmentor3IsBack)
+}
+
+if(!require(neuroblastoma)){
+install.packages(neuroblastoma)
 library(neuroblastoma)
+}
+
+if(!require(PeakSegDP){
+install.packages(PeakSegDP)
 library(PeakSegDP)
+}
 
 #Getting the Data
 data(chr11ChIPseq,package="PeakSegDP")
