@@ -30,6 +30,29 @@ w=c(rpois(200,4),rpois(200,1),rpois(200,2.2))  #Artificial Dataset with 3 differ
 x=chr11ChIPseq$regions$chromStart
 y=neuroblastoma$profiles$logratio[1:20]
 z=c(1,2,2,1)
+
+#Generating Jumping Average Artificial Dataset
+mu=function(n){
+if(n==0){return(0)}
+else{
+return(mu(n-1)+(n/16)) }
+}
+muvect=vector()
+for(i in 1:5){
+muvect[i]=mu(i) }
+q=vector()
+q[1]=0
+q[2]=0
+for(i in 3:23){
+q[i]=0.6*q[i-1]-0.5*q[i-2]+rnorm(200,muvect[1],1.5)[i] }
+for(i in 24:44){
+q[i]=0.6*q[i-1]-0.5*q[i-2]+rnorm(200,muvect[2],1.5)[i] }
+for(i in 45:65){
+q[i]=0.6*q[i-1]-0.5*q[i-2]+rnorm(200,muvect[3],1.5)[i] }
+for(i in 66:86){
+q[i]=0.6*q[i-1]-0.5*q[i-2]+rnorm(200,muvect[4],1.5)[i] }
+for(i in 87:107){
+q[i]=0.6*q[i-1]-0.5*q[i-2]+rnorm(200,muvect[5],1.5)[i] }
 ```
 ## Applying the Segmentor and obtaining the change-points
 ```{r, message=FALSE}
@@ -38,12 +61,14 @@ w_seg=Segmentor(w,model=1,Kmax=5)
 x_seg=Segmentor(x,model=1,Kmax=15)
 y_seg=Segmentor(y,model=2,Kmax=5)
 z_seg=Segmentor(z,model=1,Kmax=4)
+q_seg=Segmentor(q,model = 2,Kmax = 6)
 
 #Getting Change Points
 w_seg@breaks
 x_seg@breaks
 y_seg@breaks
 z_seg@breaks
+q_seg@breaks
 ```
 ## Plotting
 The vertical lines in the plots correspond to change-points.
@@ -86,3 +111,15 @@ abline(v=3,col="green")
 abline(v=4,col="green")
 ```
 ![alt tag](https://user-images.githubusercontent.com/37847118/49724996-b3fd1d00-fc90-11e8-8738-1ff6e18725b2.png)
+
+```{r, message=FALSE}
+#Plotting for the case of 6 segments in moving average dataset
+plot(q)
+abline(v=53,col="purple")
+abline(v=55,col="purple")
+abline(v=58,col="purple")
+abline(v=72,col="purple")
+abline(v=105,col="purple")
+```
+![alt tag](https://user-images.githubusercontent.com/37847118/49730992-f2e69f00-fc9f-11e8-9399-7ed92760df07.png)
+It is clearly observed that the algorithm fails to produce a valid set of change-points for the case of Jumping average artificial dataset.
