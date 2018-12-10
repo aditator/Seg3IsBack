@@ -52,6 +52,7 @@ abline(v=200,col="purple")
 abline(v=400,col="purple")
 abline(v=600,col="purple")
 ```
+![alt tag](https://user-images.githubusercontent.com/37847118/49724995-b3fd1d00-fc90-11e8-8ceb-f6053178791c.png)
 
 ```{r, message=FALSE}
 #Plotting for case of 6 segments in X
