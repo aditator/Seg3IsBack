@@ -5,19 +5,28 @@ library(PeakSegDP)
 #Getting the Data
 data(chr11ChIPseq,package="PeakSegDP")
 data(neuroblastoma,package="neuroblastoma")
+w=c(rpois(200,4),rpois(200,1),rpois(200,2.2))  #Artificial Dataset with 3 different normal distributions appended together, each of length 200
 x=chr11ChIPseq$regions$chromStart
 y=neuroblastoma$profiles$logratio[1:20]
 z=c(1,2,2,1)
 
 #Performing Segmentation
+w_seg=Segmentor(w,model=1,Kmax=5)
 x_seg=Segmentor(x,model=1,Kmax=15)
 y_seg=Segmentor(y,model=2,Kmax=5)
 z_seg=Segmentor(z,model=1,Kmax=4)
 
 #Getting Change Points
+w_seg@breaks
 x_seg@breaks
 y_seg@breaks
 z_seg@breaks
+
+#Plotting for case of 3 segments in W
+plot(w)
+abline(v=200,col="purple")
+abline(v=400,col="purple")
+abline(v=600,col="purple")
 
 #Plotting for case of 6 segments in X
 plot(x)
