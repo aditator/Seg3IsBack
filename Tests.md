@@ -30,7 +30,9 @@ w=c(rpois(200,4),rpois(200,1),rpois(200,2.2))  #Artificial Dataset with 3 differ
 x=chr11ChIPseq$regions$chromStart
 y=neuroblastoma$profiles$logratio[1:20]
 z=c(1,2,2,1)
-
+```
+![alt tag](https://user-images.githubusercontent.com/37847118/51668016-41998f80-1fe7-11e9-9e6f-c242201aebf0.png)
+```{r, message=FALSE}
 #Generating Jumping Average Artificial Dataset
 mu=function(n){
 if(n==0){return(0)}
@@ -54,7 +56,9 @@ q[i]=0.6*q[i-1]-0.5*q[i-2]+rnorm(200,muvect[4],1.5)[i] }
 for(i in 87:107){
 q[i]=0.6*q[i-1]-0.5*q[i-2]+rnorm(200,muvect[5],1.5)[i] }
 q=q[3:107]
-
+```
+![alt tag](https://user-images.githubusercontent.com/37847118/51668283-de5c2d00-1fe7-11e9-86ae-8600b13e75ad.png)
+```{r, message=FALSE}
 #Generating Moving Frequency Dataset
 o=vector()
 o[1]=1
