@@ -82,7 +82,7 @@ for(i in 201:250){
   jumping_frequency[i]=sin(o[5]*i)+rnorm(5000,0,0.8)[i]
 }
 ```
-## Applying the Segmentor and obtaining the change-points
+## Applying the Segmentor
 ```{r, message=FALSE}
 appended_gaussian_seg=Segmentor(appended_gaussian,model=1,Kmax=5)
 PeakSegDP_dataset_seg=Segmentor(PeakSegDP_dataset,model=1,Kmax=15)
@@ -90,42 +90,28 @@ neuroblastoma_dataset_seg=Segmentor(neuroblastoma_dataset,model=2,Kmax=5)
 edge_case_seg=Segmentor(edge_case,model=1,Kmax=4)
 jumping_average_seg=Segmentor(jumping_average,model = 2,Kmax = 6)
 jumping_frequency_seg=Segmentor(jumping_frequency,Kmax = 6,model = 2)
-
-
-#Getting Change Points
-appended_gaussian_seg@breaks
-PeakSegDP_dataset_seg@breaks
-neuroblastoma_dataset_seg@breaks
-edge_case_seg@breaks
-jumping_average_seg@breaks
-jumping_frequency_seg@breaks
 ```
 ## Plotting
 The vertical lines in the plots correspond to change-points.
 
 ```{r, message=FALSE}
-#Plotting for case of 3 segments in appended_gaussian
-plot(appended_gaussian)
-abline(v=200,col="purple")
-abline(v=400,col="purple")
-abline(v=600,col="purple")
+#appended_gaussian
+AGchoose=SelectModel(appended_gaussian_seg,penalty = "oracle")
+plot(appended_gaussian,col='red')
+abline(v=getBreaks(appended_gaussian_seg)[AGchoose, 1:AGchoose],col='blue')
 ```
-![alt tag](https://user-images.githubusercontent.com/37847118/49724995-b3fd1d00-fc90-11e8-8ceb-f6053178791c.png)
+![alt tag](https://user-images.githubusercontent.com/37847118/52477751-0ee7bd80-2bc9-11e9-8515-158116cd0725.png)
 
 
 The algorithm gives the predicted set of change-points, i.e c(200,400,600).
 
 ```{r, message=FALSE}
-#Plotting for case of 6 segments in PeakSegDP_dataset
-plot(PeakSegDP_dataset)
-abline(v=2,col="red")
-abline(v=3,col="red")
-abline(v=4,col="red")
-abline(v=7,col="red")
-abline(v=8,col="red")
-abline(v=16,col="red")
+#PeakSegDP_dataset
+PSDchoose=SelectModel(PeakSegDP_dataset_seg,penalty = "oracle")
+plot(PeakSegDP_dataset,col='dark red')
+abline(v=getBreaks(PeakSegDP_dataset_seg)[PSDchoose, 1:PSDchoose],col='blue')
 ```
-![alt tag](https://user-images.githubusercontent.com/37847118/49725468-c035aa00-fc91-11e8-85b9-3dc6691584ec.png)
+![alt tag](https://user-images.githubusercontent.com/37847118/52477745-0e4f2700-2bc9-11e9-8391-cf3a1e512586.png)
 ```{r, message=FALSE}
 #Plotting for case of 5 segments in neuroblastoma_dataset
 plot(neuroblastoma_dataset)
@@ -137,38 +123,31 @@ abline(v=20,col="blue")
 ```
 ![alt tag](https://user-images.githubusercontent.com/37847118/49724993-b3648680-fc90-11e8-9729-41ccb76dc9fa.png)
 ```{r, message=FALSE}
-#Plotting for case of 3 segments in (c(1,2,2,1))
-plot(edge_case)
-abline(v=1,col="green")
-abline(v=3,col="green")
-abline(v=4,col="green")
+#edge_case
+ECchoose=SelectModel(edge_case_seg,penalty = "oracle")
+plot(edge_case,col="red")
+abline(v=getBreaks(edge_case_seg)[ECchoose, 1:ECchoose],col='blue')
 ```
-![alt tag](https://user-images.githubusercontent.com/37847118/49724996-b3fd1d00-fc90-11e8-8738-1ff6e18725b2.png)
+![alt tag](https://user-images.githubusercontent.com/37847118/52477749-0ee7bd80-2bc9-11e9-874f-6072d3572183.png)
 
 ```{r, message=FALSE}
-#Plotting for the case of 6 segments in moving average dataset
-plot(jumping_average)
-abline(v=53,col="purple")
-abline(v=55,col="purple")
-abline(v=58,col="purple")
-abline(v=72,col="purple")
-abline(v=105,col="purple")
+#Jumping_average
+JAchoose=SelectModel(jumping_average_seg,penalty = "oracle")
+plot(jumping_average,col="red")
+abline(v=getBreaks(jumping_average_seg)[JAchoose, 1:JAchoose],col='blue')
 ```
-![alt tag](https://user-images.githubusercontent.com/37847118/49730992-f2e69f00-fc9f-11e8-9399-7ed92760df07.png)
+![alt tag](https://user-images.githubusercontent.com/37847118/52477748-0e4f2700-2bc9-11e9-9293-f6e989a77445.png)
 
 
 It is clearly observed that the algorithm fails to produce a valid set of change-points for the case of Jumping average artificial dataset.
 
 ```{r, message=FALSE}
-#Plotting for the case of 5 segments in Changing Frequency dataset
-plot(jumping_frequency)
-abline(v=79,col="brown")
-abline(v=80,col="brown")
-abline(v=188,col="brown")
-abline(v=189,col="brown")
-abline(v=250,col="brown")
+#Changing Frequency
+JFchoose=SelectModel(jumping_frequency_seg,penalty = "oracle")
+plot(jumping_frequency,col="red")
+abline(v=getBreaks(jumping_frequency_seg)[JFchoose, 1:JFchoose],col='blue')
 ```
-![alt tag](https://user-images.githubusercontent.com/37847118/49733254-05180b80-fca7-11e8-8070-bde62c471462.png)
+![alt tag](https://user-images.githubusercontent.com/37847118/52477747-0e4f2700-2bc9-11e9-8789-0c26e0b5f928.png)
 
 
 The algorithm does not bring expected change-points.
