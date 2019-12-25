@@ -105,7 +105,7 @@ void BinNegative::SpecializeMe(int y)
 {
   A = 0;
   S = y;
-  T = T;
+  //T = T;
   FirstElementSpecified = true;
 
 }
